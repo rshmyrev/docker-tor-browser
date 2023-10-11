@@ -1,0 +1,17 @@
+version: "3.9"
+
+name: tor-browser
+services:
+  tor-browser:
+    image: rshmyrev/tor-browser
+    build: .
+    hostname: debian
+    environment:
+      - DISPLAY=unix$DISPLAY # X11
+      - PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native # PulseAudio
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro # X11
+      - $XDG_RUNTIME_DIR/pulse:$XDG_RUNTIME_DIR/pulse:ro # PulseAudio
+      - $HOME/Downloads:/Browser/Downloads
+    command:
+      - https://check.torproject.org/
